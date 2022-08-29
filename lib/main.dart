@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'My Wallet',
+          title: 'CeemyCash',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch().copyWith(
               primary: const Color.fromARGB(255, 9, 0, 105),

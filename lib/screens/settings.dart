@@ -246,7 +246,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                 onTap: (() {
                   Navigator.pop(context);
                   Share.share(
-                      'https://play.google.com/store/apps/details?id=in.siyaudheen.CeemyCash');
+                      'https://play.google.com/store/apps/details?id=in.siyaudheen.my_wallet');
                 }),
                 child: const SettingsItems(
                   text1: 'Share this app',
@@ -280,7 +280,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                 width: double.maxFinite,
                 alignment: Alignment.center,
                 child: Text(
-                  'v1.0.0',
+                  'v1.0.1',
                   style: TextStyle(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     fontSize: 15.sp,

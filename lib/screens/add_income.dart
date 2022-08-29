@@ -212,7 +212,7 @@ class _AddIncomeState extends State<AddIncome> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).push(
+                          Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => const ScreenCategories(),
                             ),

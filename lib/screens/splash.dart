@@ -51,7 +51,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
                       Colors.white,
                       const Color.fromARGB(255, 0, 27, 48),
                     ],
-                    'My Wallet',
+                    'CeemyCash',
                     textStyle: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                       fontSize: 22,
