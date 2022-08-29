@@ -62,6 +62,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           if (selectedPageIndex != 0) {
             setState(() {
               selectedPageIndex = 0;
+              isVisible = true;
             });
             return false;
           }
