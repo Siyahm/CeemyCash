@@ -1,4 +1,4 @@
-# my_wallet
+# CeemyCash
 
 A new Flutter project.
 
