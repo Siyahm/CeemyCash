@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:my_wallet/functions/credentials.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_wallet/supporting_screens/Home_supports/bottom_navigation_bar.dart';
+import 'package:my_wallet/screens/welcome_screen/controller/welcome_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 class ScreenWelcome extends StatelessWidget {
-  ScreenWelcome({Key? key}) : super(key: key);
-  final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController usrNameCollector = TextEditingController();
+  const ScreenWelcome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final welcomeScrnProvider = Provider.of<WelcomeScreeenProvider>(context);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.fromLTRB(35, 25, 35, 25),
@@ -67,9 +64,9 @@ class ScreenWelcome extends StatelessWidget {
                         ),
                       ),
                       child: Form(
-                        key: _formKey,
+                        key: welcomeScrnProvider.formKey,
                         child: TextFormField(
-                          controller: usrNameCollector,
+                          controller: welcomeScrnProvider.usrNameCollector,
                           style: TextStyle(
                             fontSize: 24.sp,
                             color: Colors.white,
@@ -85,13 +82,8 @@ class ScreenWelcome extends StatelessWidget {
                               fontSize: 24.sp,
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Name is required';
-                            } else {
-                              return null;
-                            }
-                          },
+                          validator: (value) =>
+                              welcomeScrnProvider.validator(value),
                         ),
                       ),
                     ),
@@ -99,20 +91,10 @@ class ScreenWelcome extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
+                          backgroundColor: Colors.blue,
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-                            SaveName.login(
-                              usrname: usrNameCollector.text,
-                            );
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (ctx2) => const BottomNavBar(),
-                              ),
-                            );
-                          }
+                          welcomeScrnProvider.startButttonPressed(context);
                         },
                         child: const Text('START'),
                       ),

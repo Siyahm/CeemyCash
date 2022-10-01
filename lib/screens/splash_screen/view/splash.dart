@@ -1,29 +1,19 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_wallet/functions/credentials.dart';
+import 'package:my_wallet/screens/splash_screen/controller/splash_screen_provider.dart';
+import 'package:provider/provider.dart';
 
-import 'package:my_wallet/screens/page_1.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-
-class ScreenSplash extends StatefulWidget {
+class ScreenSplash extends StatelessWidget {
   const ScreenSplash({Key? key}) : super(key: key);
 
   @override
-  State<ScreenSplash> createState() => _ScreenSplashState();
-}
-
-class _ScreenSplashState extends State<ScreenSplash> {
-  @override
-  void initState() {
-    startingPages(context);
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<SplashScreenProvider>(context, listen: false)
+          .startingPages(context);
+    });
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -64,17 +54,4 @@ class _ScreenSplashState extends State<ScreenSplash> {
       ),
     );
   }
-}
-
-Future<void> startingPages(context) async {
-  await Future.delayed(
-    const Duration(seconds: 4),
-  );
-  SaveName.checkSaved(context);
-  Navigator.of(context).pushReplacement(
-    MaterialPageRoute(
-      // builder: (ctx) => const PageOne(),
-      builder: (ctx) => const PageOne(),
-    ),
-  );
 }

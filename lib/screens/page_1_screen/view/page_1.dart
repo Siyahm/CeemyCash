@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_wallet/screens/welcome.dart';
+import 'package:my_wallet/screens/page_1_screen/controller/page_1_provider.dart';
+import 'package:provider/provider.dart';
 
-class PageTwo extends StatelessWidget {
-  const PageTwo({Key? key}) : super(key: key);
+class PageOne extends StatelessWidget {
+  const PageOne({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,33 +12,34 @@ class PageTwo extends StatelessWidget {
       body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Color.fromARGB(255, 0, 27, 48),
-            Color.fromARGB(255, 17, 149, 186),
-          ],
-        )),
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Color.fromARGB(255, 0, 27, 48),
+              Color.fromARGB(255, 17, 149, 186),
+            ],
+          ),
+        ),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // const SizedBox(
-              //   height: 180,
-              // ),
               SizedBox(
-                height: 260.h,
+                height: 220.h,
                 child: const Image(
-                  image: AssetImage('lib/assets/save money.png'),
+                  image: AssetImage(
+                    'lib/assets/moneymanagement1.png',
+                  ),
                 ),
               ),
               SizedBox(
                 height: 70.h,
               ),
               const Text(
-                'Save Your Money',
-                style: TextStyle(color: Colors.white, fontSize: 25),
+                'Track Your Expense',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 255, 255, 255), fontSize: 25),
               ),
               SizedBox(
                 height: 100.h,
@@ -46,26 +48,23 @@ class PageTwo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CircleAvatar(
-                    backgroundColor: const Color.fromARGB(255, 122, 122, 122),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                     radius: 4.5.r,
                   ),
                   SizedBox(
                     width: 10.w,
                   ),
                   CircleAvatar(
-                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    backgroundColor: const Color.fromARGB(255, 104, 104, 104),
                     radius: 4.5.r,
                   ),
                   SizedBox(
-                    width: 130.w,
+                    width: 120.w,
                   ),
                   IconButton(
                     onPressed: (() {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (ctx1) => ScreenWelcome(),
-                        ),
-                      );
+                      Provider.of<Page1Provider>(context, listen: false)
+                          .buttonPressed(context);
                     }),
                     icon: const Icon(
                       Icons.arrow_forward_ios,

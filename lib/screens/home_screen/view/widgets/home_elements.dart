@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
+import 'package:my_wallet/screens/home_screen/controller/home_screen_provider.dart';
 import 'package:my_wallet/supporting_screens/Home_supports/home_cards.dart';
 import 'package:my_wallet/supporting_screens/Home_supports/recent_transactions.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-class HomeElements extends StatefulWidget {
-  const HomeElements({Key? key}) : super(key: key);
+class HomeElements extends StatelessWidget {
+  HomeElements({Key? key}) : super(key: key);
 
-  @override
-  State<HomeElements> createState() => _HomeElementsState();
-}
-
-class _HomeElementsState extends State<HomeElements> {
-  @override
-  void initState() {
-    TransactionDB.instance.refreshUI();
-
-    super.initState();
-  }
-
-  Map<String, double> transactionGraph = {
-    'Income': TransactionDB.instance.totalIncome.value,
-    'Expense': TransactionDB.instance.totalExpense.value,
-  };
   @override
   Widget build(BuildContext context) {
+    final homeScrnProvider = Provider.of<HomeScreenProvider>(context);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      homeScrnProvider.refreshWidgetUI();
+    });
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -53,7 +43,7 @@ class _HomeElementsState extends State<HomeElements> {
                       showLegends: false,
                     ),
                     chartType: ChartType.ring,
-                    dataMap: transactionGraph,
+                    dataMap: homeScrnProvider.transactionGraph,
                   ),
                   CircleAvatar(
                     radius: 111.r,

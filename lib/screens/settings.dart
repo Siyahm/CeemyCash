@@ -7,7 +7,7 @@ import 'package:my_wallet/models/category/category_model.dart';
 import 'package:my_wallet/models/transactions/transaction_model.dart';
 import 'package:my_wallet/screens/about.dart';
 import 'package:my_wallet/screens/privacy_policy.dart';
-import 'package:my_wallet/screens/splash.dart';
+import 'package:my_wallet/screens/splash_screen/view/splash.dart';
 import 'package:my_wallet/screens/terms_and_conditions.dart';
 import 'package:my_wallet/supporting_screens/settings_support/settings_items.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

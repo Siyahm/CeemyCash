@@ -3,9 +3,9 @@ import 'package:my_wallet/db_functions/category/category_db.dart';
 import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
 import 'package:my_wallet/screens/add_expense.dart';
 import 'package:my_wallet/screens/add_income.dart';
-import 'package:my_wallet/screens/categories.dart';
+import 'package:my_wallet/screens/categories_screen/view/categories.dart';
 import 'package:my_wallet/screens/chart.dart';
-import 'package:my_wallet/screens/home.dart';
+import 'package:my_wallet/screens/home_screen/view/home.dart';
 import 'package:my_wallet/screens/settings.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

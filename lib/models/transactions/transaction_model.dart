@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
-import 'package:my_wallet/models/category/category_model.dart';
+
+import '../../screens/categories_screen/models/category_model.dart';
 part 'transaction_model.g.dart';
 
 @HiveType(typeId: 4)

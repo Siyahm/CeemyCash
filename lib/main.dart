@@ -3,7 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:my_wallet/models/category/category_model.dart';
 import 'package:my_wallet/models/transactions/transaction_model.dart';
-import 'package:my_wallet/screens/splash.dart';
+import 'package:my_wallet/screens/home_screen/controller/home_screen_provider.dart';
+import 'package:my_wallet/screens/page_1_screen/controller/page_1_provider.dart';
+import 'package:my_wallet/screens/page_2_screen/controller/page_2_provider.dart';
+import 'package:my_wallet/screens/splash_screen/controller/splash_screen_provider.dart';
+import 'package:my_wallet/screens/splash_screen/view/splash.dart';
+import 'package:my_wallet/screens/welcome_screen/controller/welcome_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,15 +43,34 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'CeemyCash',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSwatch().copyWith(
-              primary: const Color.fromARGB(255, 9, 0, 105),
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: ((_) => SplashScreenProvider()),
             ),
+            ChangeNotifierProvider(
+              create: ((_) => WelcomeScreeenProvider()),
+            ),
+            ChangeNotifierProvider(
+              create: ((_) => Page1Provider()),
+            ),
+            ChangeNotifierProvider(
+              create: ((_) => Page2Provider()),
+            ),
+            ChangeNotifierProvider(
+              create: ((_) => HomeScreenProvider()),
+            ),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'CeemyCash',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                primary: const Color.fromARGB(255, 9, 0, 105),
+              ),
+            ),
+            home: const ScreenSplash(),
           ),
-          home: const ScreenSplash(),
         );
       },
     );

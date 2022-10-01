@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_wallet/db_functions/category/category_db.dart';
-import 'package:my_wallet/models/category/category_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_wallet/screens/categories_screen/models/category_model.dart';
 import 'package:my_wallet/supporting_screens/categories_support/expense_categories.dart';
 import 'package:my_wallet/supporting_screens/categories_support/income_categories.dart';
 

@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:my_wallet/screens/categories.dart';
+import 'package:my_wallet/screens/categories_screen/models/category_model.dart';
+import 'package:my_wallet/screens/categories_screen/view/categories.dart';
 import 'package:my_wallet/supporting_screens/Home_supports/bottom_navigation_bar.dart';
 import '../db_functions/category/category_db.dart';
 import '../db_functions/transactions/transaction_db.dart';
-import '../models/category/category_model.dart';
+
 import '../models/transactions/transaction_model.dart';
 
 enum ScreenAction2 {

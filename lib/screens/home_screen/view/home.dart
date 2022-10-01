@@ -1,41 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
+import 'package:my_wallet/screens/home_screen/controller/home_screen_provider.dart';
+import 'package:my_wallet/screens/home_screen/view/widgets/home_elements.dart';
+import 'package:provider/provider.dart';
 
-import 'package:my_wallet/supporting_screens/Home_supports/home_elements.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-class ScreenHome extends StatefulWidget {
+class ScreenHome extends StatelessWidget {
   const ScreenHome({Key? key}) : super(key: key);
 
   static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
 
   @override
-  State<ScreenHome> createState() => _ScreenHomeState();
-}
-
-class _ScreenHomeState extends State<ScreenHome> {
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
-
-  String userEnteredName = '';
-
-  Future<void> savedName() async {
-    final name = await SharedPreferences.getInstance();
-    final nameOfUser = name.getString('usrnameKey');
-    setState(() {
-      userEnteredName = nameOfUser.toString();
-    });
-  }
-
-  @override
-  void initState() {
-    savedName();
-    TransactionDB.instance.refreshUI();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final homeScrnProvider = Provider.of<HomeScreenProvider>(
+      context,
+    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      homeScrnProvider.iniStateCall();
+    });
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -49,7 +30,7 @@ class _ScreenHomeState extends State<ScreenHome> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        key: _key,
+        key: homeScrnProvider.key,
         body: SafeArea(
           child: Stack(
             children: [
@@ -72,7 +53,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                         ),
                       ),
                       Text(
-                        userEnteredName,
+                        homeScrnProvider.userEnteredName,
                         style: TextStyle(
                             fontSize: 25.sp,
                             color: const Color.fromARGB(255, 255, 248, 181),
@@ -88,7 +69,7 @@ class _ScreenHomeState extends State<ScreenHome> {
               const SizedBox(
                 width: 15,
               ),
-              const HomeElements(),
+              HomeElements(),
               Positioned(
                 bottom: 0.h,
                 // left: 160.w,
