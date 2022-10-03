@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_wallet/db_functions/category/category_db.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_wallet/screens/categories_screen/models/category_model.dart';
-import 'package:my_wallet/supporting_screens/categories_support/expense_categories.dart';
-import 'package:my_wallet/supporting_screens/categories_support/income_categories.dart';
+import 'package:my_wallet/screens/categories_screen/controller/categories_provider.dart';
+import 'package:my_wallet/screens/categories_screen/view/widgets/expense_categories.dart';
+import 'package:my_wallet/screens/categories_screen/view/widgets/income_categories.dart';
+import 'package:provider/provider.dart';
 
 class ScreenCategories extends StatefulWidget {
   const ScreenCategories({Key? key}) : super(key: key);
@@ -12,27 +11,16 @@ class ScreenCategories extends StatefulWidget {
   State<ScreenCategories> createState() => _ScreenCategoriesState();
 }
 
-class _ScreenCategoriesState extends State<ScreenCategories>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  ValueNotifier<int> selectedNotifier = ValueNotifier(0);
-  final nameEditignController = TextEditingController();
-
-  @override
-  void initState() {
-    _tabController = TabController(length: 2, vsync: this);
-    CategoryDB().refreshUI();
-    super.initState();
-  }
-
+class _ScreenCategoriesState extends State<ScreenCategories> {
   @override
   void dispose() {
-    nameEditignController.dispose();
+    CategoriesProvider().nameEditignController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final categoriesProvider = Provider.of<CategoriesProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Categories'),
@@ -43,9 +31,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _tabController.index == 0
-              ? addIncomeCategoryPopup(context)
-              : addExpenseCategoryPopup(context);
+          categoriesProvider.floatButtonPressed(context);
         },
         child: const Icon(Icons.add),
       ),
@@ -67,7 +53,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
                 labelColor: const Color.fromARGB(255, 255, 238, 155),
                 unselectedLabelColor: const Color.fromARGB(171, 255, 255, 255),
                 indicatorColor: const Color.fromARGB(255, 255, 238, 155),
-                controller: _tabController,
+                controller: categoriesProvider.tabController,
                 tabs: const [
                   Tab(
                     text: 'Income',
@@ -79,7 +65,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
               ),
               Expanded(
                 child: TabBarView(
-                  controller: _tabController,
+                  controller: categoriesProvider.tabController,
                   children: const [
                     IncomeCategories(),
                     ExpenseCategories(),
@@ -93,111 +79,58 @@ class _ScreenCategoriesState extends State<ScreenCategories>
     );
   }
 
-  Future<void> addIncomeCategoryPopup(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Add Income Categgory'),
-        content: TextFormField(
-          controller: nameEditignController,
-          decoration: InputDecoration(
-            hintText: 'Enter category name',
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 1.w),
-              borderRadius: BorderRadius.circular(15.r),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 1.w),
-              borderRadius: BorderRadius.circular(15.r),
-            ),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Cancel'),
-          ),
-          ValueListenableBuilder(
-              valueListenable: nameEditignController,
-              builder:
-                  ((BuildContext context, TextEditingValue value, Widget? _) {
-                return TextButton(
-                  onPressed: nameEditignController.text.isNotEmpty
-                      ? () {
-                          final name = nameEditignController.text.trim();
+  // Future<void> addExpenseCategoryPopup(BuildContext context) async {
+  //   final categoriesProvider = Provider.of<CategoriesProvider>(context);
+  //   showDialog(
+  //     context: context,
+  //     builder: (ctx) => AlertDialog(
+  //       title: const Text('Add Expense Categgory'),
+  //       content: TextFormField(
+  //         controller: categoriesProvider.nameEditignController,
+  //         decoration: InputDecoration(
+  //           hintText: 'Enter category name',
+  //           enabledBorder: OutlineInputBorder(
+  //             borderSide: BorderSide(width: 1.w),
+  //             borderRadius: BorderRadius.circular(15.r),
+  //           ),
+  //           focusedBorder: OutlineInputBorder(
+  //             borderSide: BorderSide(width: 1.w),
+  //             borderRadius: BorderRadius.circular(15.r),
+  //           ),
+  //         ),
+  //       ),
+  //       actions: [
+  //         TextButton(
+  //           onPressed: () {
+  //             Navigator.pop(context);
+  //           },
+  //           child: const Text('Cancel'),
+  //         ),
+  //         ValueListenableBuilder(
+  //             valueListenable: nameEditignController,
+  //             builder:
+  //                 ((BuildContext context, TextEditingValue value, Widget? _) {
+  //               return TextButton(
+  //                 onPressed: nameEditignController.text.isNotEmpty
+  //                     ? () {
+  //                         final name = nameEditignController.text.trim();
 
-                          final categoryModelObj = CategoryModel(
-                              id: DateTime.now()
-                                  .millisecondsSinceEpoch
-                                  .toString(),
-                              name: name,
-                              type1: CategoryType.income);
-                          CategoryDB().insertCategory(categoryModelObj);
-                          nameEditignController.clear();
-                          Navigator.of(ctx).pop();
-                        }
-                      : null,
-                  child: const Text('Save'),
-                );
-              }))
-        ],
-      ),
-    );
-  }
-
-  Future<void> addExpenseCategoryPopup(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Add Expense Categgory'),
-        content: TextFormField(
-          controller: nameEditignController,
-          decoration: InputDecoration(
-            hintText: 'Enter category name',
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 1.w),
-              borderRadius: BorderRadius.circular(15.r),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 1.w),
-              borderRadius: BorderRadius.circular(15.r),
-            ),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Cancel'),
-          ),
-          ValueListenableBuilder(
-              valueListenable: nameEditignController,
-              builder:
-                  ((BuildContext context, TextEditingValue value, Widget? _) {
-                return TextButton(
-                  onPressed: nameEditignController.text.isNotEmpty
-                      ? () {
-                          final name = nameEditignController.text.trim();
-
-                          final categoryModelObj = CategoryModel(
-                              id: DateTime.now()
-                                  .millisecondsSinceEpoch
-                                  .toString(),
-                              name: name,
-                              type1: CategoryType.expense);
-                          CategoryDB().insertCategory(categoryModelObj);
-                          nameEditignController.clear();
-                          Navigator.of(ctx).pop();
-                        }
-                      : null,
-                  child: const Text('Save'),
-                );
-              }))
-        ],
-      ),
-    );
-  }
+  //                         final categoryModelObj = CategoryModel(
+  //                             id: DateTime.now()
+  //                                 .millisecondsSinceEpoch
+  //                                 .toString(),
+  //                             name: name,
+  //                             type1: CategoryType.expense);
+  //                         CategoryDB().addtCategory(categoryModelObj);
+  //                         nameEditignController.clear();
+  //                         Navigator.of(ctx).pop();
+  //                       }
+  //                     : null,
+  //                 child: const Text('Save'),
+  //               );
+  //             }))
+  //       ],
+  //     ),
+  //   );
+  // }
 }

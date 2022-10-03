@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_wallet/db_functions/category/category_db.dart';
-import 'package:my_wallet/models/category/category_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExpenseCategories extends StatelessWidget {

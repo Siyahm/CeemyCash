@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:my_wallet/models/category/category_model.dart';
 import 'package:my_wallet/models/transactions/transaction_model.dart';
+import 'package:my_wallet/screens/categories_screen/controller/categories_provider.dart';
+import 'package:my_wallet/screens/categories_screen/models/category_model.dart';
 import 'package:my_wallet/screens/home_screen/controller/home_screen_provider.dart';
 import 'package:my_wallet/screens/page_1_screen/controller/page_1_provider.dart';
 import 'package:my_wallet/screens/page_2_screen/controller/page_2_provider.dart';
@@ -18,16 +19,8 @@ Future<void> main(List<String> args) async {
     Hive.registerAdapter(CategoryModelAdapter());
   }
 
-  if (!Hive.isAdapterRegistered(CategoryTypeAdapter().typeId)) {
-    Hive.registerAdapter(CategoryTypeAdapter());
-  }
-
   if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
     Hive.registerAdapter(TransactionModelAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(TransactionTypeAdapter().typeId)) {
-    Hive.registerAdapter(TransactionTypeAdapter());
   }
 
   runApp(const MyApp());
@@ -59,6 +52,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: ((_) => HomeScreenProvider()),
+            ),
+            ChangeNotifierProvider(
+              create: ((_) => Categories_provider()),
             ),
           ],
           child: MaterialApp(
