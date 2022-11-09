@@ -17,7 +17,7 @@ class BottomNavBar extends StatelessWidget {
 
     final homeScreenProvider = Provider.of<HomeScreenProvider>(context);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeScreenProvider.homeUIRefresh();
+      // homeScreenProvider.homeUIRefresh();
     });
 
     return Container(

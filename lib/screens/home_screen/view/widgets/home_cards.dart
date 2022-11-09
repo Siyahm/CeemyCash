@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
+import 'package:my_wallet/screens/all_transactions_screen/controller/all_transattions_provider.dart';
+import 'package:my_wallet/screens/home_screen/controller/home_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeCards extends StatelessWidget {
   const HomeCards({Key? key}) : super(key: key);
@@ -76,11 +79,11 @@ class HomeCards extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(right: 8.w),
-                child: ValueListenableBuilder(
-                  valueListenable: TransactionDB.instance.totalIncome,
-                  builder: (BuildContext context, value, Widget? _) {
+                child: Consumer(
+                  builder: (BuildContext context,
+                      AllTransactionsScreenProvider value, Widget? _) {
                     return Text(
-                      '₹ ${TransactionDB.instance.totalIncome.value.round().toString()}',
+                      '₹ ${value.totalIncome.round().toString()}',
                       style: TextStyle(
                         fontSize: 27.sp,
                         color: Colors.green,
@@ -155,11 +158,11 @@ class HomeCards extends StatelessWidget {
                 padding: EdgeInsets.only(
                   left: 13.sp,
                 ),
-                child: ValueListenableBuilder(
-                  valueListenable: TransactionDB.instance.totalExpense,
-                  builder: (BuildContext context, value, Widget? _) {
+                child: Consumer(
+                  builder: (BuildContext context,
+                      AllTransactionsScreenProvider value, Widget? _) {
                     return Text(
-                      '₹ ${TransactionDB.instance.totalExpense.value.round().toString()}',
+                      '₹ ${value.totalExpense.round().toString()}',
                       style: TextStyle(
                         fontSize: 27.sp,
                         color: Colors.red,

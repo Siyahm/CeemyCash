@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
+import 'package:my_wallet/screens/all_transactions_screen/controller/all_transattions_provider.dart';
 import 'package:my_wallet/screens/home_screen/controller/home_screen_provider.dart';
 import 'package:my_wallet/screens/home_screen/view/widgets/home_cards.dart';
 import 'package:my_wallet/screens/home_screen/view/widgets/recent_transactions.dart';
@@ -12,9 +13,10 @@ class HomeElements extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeScrnProvider = Provider.of<HomeScreenProvider>(context);
+    final homeScrnProvider =
+        Provider.of<AllTransactionsScreenProvider>(context);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeScrnProvider.refreshWidgetUI();
+      homeScrnProvider.refreshUI();
     });
     return SingleChildScrollView(
       child: Column(

@@ -8,10 +8,17 @@ import 'package:my_wallet/screens/add_screen/controller/add_screen_provider.dart
 import 'package:my_wallet/screens/add_screen/view/add_transaction.dart';
 
 class AllTransactionsScreenProvider with ChangeNotifier {
+  double currentBalance = 0;
+  double totalIncome = 0;
+  double totalExpense = 0;
   final List<TransactionModel> allData =
-      TransactionDB.instance.transactionListNotifier.value;
+      TransactionDB.instance.transactionListNotifier;
   List<TransactionModel> foundData = [];
   String searchCloseIcon = '';
+
+  List<TransactionModel> incomeTransactionListNotifier = [];
+  List<TransactionModel> expenseTransactionListNotifier = [];
+  List<TransactionModel> transactionListNotifier = [];
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -19,7 +26,6 @@ class AllTransactionsScreenProvider with ChangeNotifier {
   String currentTransaction = 'All';
 
   void allTransactionUIRefreshFunction() {
-    TransactionDB.instance.refreshUI();
     TransactionDB.instance.sortedTransactions();
 
     foundData = allData;
@@ -76,9 +82,36 @@ class AllTransactionsScreenProvider with ChangeNotifier {
 
   void deleteButtonPressed(index) async {
     foundData[index].delete();
-    filteredTransaction();
-    await TransactionDB.instance.refreshUI();
-    TransactionDB.instance.refreshUI();
+  }
+
+  Future<void> refreshUI() async {
+    final allTransactionList =
+        await TransactionDB.instance.getAllTransactions();
+    allTransactionList.sort(
+      (first, second) =>
+          second.transactionDate.compareTo(first.transactionDate),
+    );
+    transactionListNotifier.clear();
+    transactionListNotifier.addAll(allTransactionList);
+
+    currentBalance = 0;
+    totalIncome = 0;
+    totalExpense = 0;
+
+    await Future.forEach(
+      allTransactionList,
+      (TransactionModel transaction) {
+        if (transaction.type2 == TransactionType.incom) {
+          totalIncome = totalIncome + transaction.transactionAmount;
+          incomeTransactionListNotifier.add(transaction);
+        } else if (transaction.type2 == TransactionType.exppense) {
+          totalExpense = totalExpense + transaction.transactionAmount;
+          expenseTransactionListNotifier.add(transaction);
+        }
+      },
+    );
+
+    currentBalance = totalIncome - totalExpense;
   }
 
   void editButtonPressed(index, context) {

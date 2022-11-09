@@ -44,7 +44,6 @@ class HomeScreenProvider with ChangeNotifier {
 
   void iniStateCall() {
     savedName();
-    TransactionDB.instance.refreshUI();
     notifyListeners();
   }
 
@@ -59,12 +58,12 @@ class HomeScreenProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> refreshWidgetUI() async {
-    await TransactionDB.instance.refreshUI();
-    notifyListeners();
-  }
+  // Future<void> refreshWidgetUI() async {
+  //   await TransactionDB.instance.refreshUI();
+  //   notifyListeners();
+  // }
 
-  void homeUIRefresh() {
-    TransactionDB.instance.refreshUI();
-  }
+  // void homeUIRefresh() {
+  //   TransactionDB.instance.refreshUI();
+  // }
 }

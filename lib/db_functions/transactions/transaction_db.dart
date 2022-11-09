@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 
@@ -22,17 +21,9 @@ class TransactionDB implements TransactionDbFunctions {
   }
 
   List<TransactionModel> transactionListNotifier = [];
-  List<TransactionModel> incomeTransactionListNotifier = [];
-  List<TransactionModel> expenseTransactionListNotifier = [];
-
-  List<TransactionModel> allDaytransactionNotifier = [];
 
   // <List<TransactionModel>> todayAlltransactionNotifier =
-  //     ValueNotifier([]);
-
-  double currentBalance = 0;
-  double totalIncome = 0;
-  double totalExpense = 0;
+  //    Notifier([]);
 
   final String todayDate = DateFormat('yMMMMd').format(DateTime.now());
   final DateTime weekDate = DateTime.now().subtract(const Duration(days: 7));
@@ -43,52 +34,6 @@ class TransactionDB implements TransactionDbFunctions {
     final transactionDB =
         await Hive.openBox<TransactionModel>(transactionDbName);
     await transactionDB.put(obj.id, obj);
-
-    await refreshUI();
-  }
-
-  Future<void> refreshUI() async {
-    final allTransactionList = await getAllTransactions();
-    allTransactionList.sort(
-      (first, second) =>
-          second.transactionDate.compareTo(first.transactionDate),
-    );
-    transactionListNotifier.value.clear();
-    transactionListNotifier.value.addAll(allTransactionList);
-    // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-    transactionListNotifier.notifyListeners();
-
-    incomeTransactionListNotifier.value.clear();
-    expenseTransactionListNotifier.value.clear();
-
-    currentBalance.value = 0;
-    totalIncome.value = 0;
-    totalExpense.value = 0;
-
-    await Future.forEach(
-      allTransactionList,
-      (TransactionModel transaction) {
-        if (transaction.type2 == TransactionType.incom) {
-          totalIncome.value = totalIncome.value + transaction.transactionAmount;
-          incomeTransactionListNotifier.value.add(transaction);
-        } else if (transaction.type2 == TransactionType.exppense) {
-          totalExpense.value =
-              totalExpense.value + transaction.transactionAmount;
-          expenseTransactionListNotifier.value.add(transaction);
-        }
-
-        // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-        incomeTransactionListNotifier.notifyListeners();
-        // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-        expenseTransactionListNotifier.notifyListeners();
-      },
-    );
-
-    currentBalance.value = totalIncome.value - totalExpense.value;
-    // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-    currentBalance.notifyListeners();
-    totalIncome.notifyListeners();
-    totalExpense.notifyListeners();
   }
 
   @override
@@ -104,7 +49,5 @@ class TransactionDB implements TransactionDbFunctions {
     allTransactions.sort((secondTransaction, firstTransaction) =>
         firstTransaction.transactionDate
             .compareTo(secondTransaction.transactionDate));
-
-    refreshUI();
   }
 }
