@@ -30,11 +30,15 @@ class TransactionModel extends HiveObject {
   @HiveField(4)
   TransactionType type2;
 
+  @HiveField(5)
+  String? description;
+
   TransactionModel({
     required this.transactionDate,
     required this.transactionAmount,
     required this.transactionCategory,
     required this.type2,
+    this.description,
   }) {
     id = DateTime.now().millisecondsSinceEpoch.toString();
   }

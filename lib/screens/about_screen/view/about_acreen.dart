@@ -13,14 +13,7 @@ class ScreenAboutUs extends StatelessWidget {
     final aboutScreenProvider = Provider.of<AboutScreenProvider>(context);
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Color.fromARGB(255, 0, 27, 48),
-            Color.fromARGB(255, 17, 149, 186),
-          ],
-        ),
+        color: Color.fromARGB(255, 3, 45, 81),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -47,7 +40,7 @@ class ScreenAboutUs extends StatelessWidget {
                           'About App',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 22.sp,
+                            fontSize: 24.sp,
                           ),
                         ),
                         SizedBox(
@@ -57,7 +50,7 @@ class ScreenAboutUs extends StatelessWidget {
                           'CeemyCash is a money manager application developed by SM Creations.',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 13.sp,
+                            fontSize: 16.sp,
                           ),
                           textAlign: TextAlign.justify,
                         ),
@@ -68,7 +61,7 @@ class ScreenAboutUs extends StatelessWidget {
                           'Connect with Developer',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 22.sp,
+                            fontSize: 24.sp,
                           ),
                         ),
                         SizedBox(

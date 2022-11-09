@@ -7,9 +7,11 @@ import 'package:my_wallet/screens/add_screen/controller/add_screen_provider.dart
 import 'package:my_wallet/screens/all_transactions_screen/controller/all_transattions_provider.dart';
 import 'package:my_wallet/screens/categories_screen/controller/categories_provider.dart';
 import 'package:my_wallet/screens/categories_screen/models/category_model.dart';
+import 'package:my_wallet/screens/chart/controller/char_provider.dart';
 import 'package:my_wallet/screens/home_screen/controller/home_screen_provider.dart';
 import 'package:my_wallet/screens/page_1_screen/controller/page_1_provider.dart';
 import 'package:my_wallet/screens/page_2_screen/controller/page_2_provider.dart';
+import 'package:my_wallet/screens/setting/controller/settings_provider.dart';
 import 'package:my_wallet/screens/splash_screen/controller/splash_screen_provider.dart';
 import 'package:my_wallet/screens/splash_screen/view/splash.dart';
 import 'package:my_wallet/screens/welcome_screen/controller/welcome_screen_provider.dart';
@@ -74,6 +76,12 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: ((_) => AllTransactionsScreenProvider()),
+            ),
+            ChangeNotifierProvider(
+              create: ((_) => ChartProvider()),
+            ),
+            ChangeNotifierProvider(
+              create: ((_) => SettingsProvider()),
             ),
           ],
           child: MaterialApp(

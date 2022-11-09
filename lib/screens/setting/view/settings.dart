@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:my_wallet/db_functions/category/category_db.dart';
-import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
-
-import 'package:my_wallet/screens/add_screen/model/transaction_model.dart';
-import 'package:my_wallet/screens/about_screen/view/about_acreen.dart';
-
-import 'package:my_wallet/screens/categories_screen/models/category_model.dart';
-import 'package:my_wallet/screens/privacy_policy.dart';
-import 'package:my_wallet/screens/splash_screen/view/splash.dart';
-import 'package:my_wallet/screens/terms_and_conditions.dart';
-import 'package:my_wallet/supporting_screens/settings_support/settings_items.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_wallet/screens/privacy_policy/view/privacy_policy.dart';
+import 'package:my_wallet/screens/setting/controller/settings_provider.dart';
+import 'package:my_wallet/screens/setting/view/widget/settings_divider.dart';
+import 'package:my_wallet/screens/terms_and_conditions/view/terms_and_conditions.dart';
+import 'package:my_wallet/screens/setting/view/widget/settings_items.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:store_redirect/store_redirect.dart';
 
-class ScreenSettings extends StatefulWidget {
+class ScreenSettings extends StatelessWidget {
   const ScreenSettings({Key? key}) : super(key: key);
 
   @override
-  State<ScreenSettings> createState() => _ScreenSettingsState();
-}
-
-class _ScreenSettingsState extends State<ScreenSettings> {
-  @override
   Widget build(BuildContext context) {
+    final settingsProvider =
+        Provider.of<SettingsProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 0, 48, 84),
@@ -37,14 +27,6 @@ class _ScreenSettingsState extends State<ScreenSettings> {
         child: Container(
           decoration: const BoxDecoration(
             color: Color.fromARGB(255, 233, 233, 233),
-            // gradient: LinearGradient(
-            //   begin: Alignment.bottomLeft,
-            //   end: Alignment.topRight,
-            //   colors: [
-            //     Color.fromARGB(255, 0, 27, 48),
-            //     Color.fromARGB(255, 17, 149, 186),
-            //   ],
-            // ),
           ),
           child: Column(
             children: [
@@ -53,14 +35,9 @@ class _ScreenSettingsState extends State<ScreenSettings> {
               ),
               // const Divider1(),
               GestureDetector(
-                onTap: (() {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ScreenAboutUs(),
-                    ),
-                  );
-                }),
+                onTap: () {
+                  settingsProvider.onClickAboutUs(context);
+                },
                 child: const SettingsItems(
                   text1: 'About Us',
                   icon1: Icons.info_outline,
@@ -115,8 +92,9 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                       const Spacer(),
                                       TextButton(
                                         onPressed: () {
-                                          resetAllData();
-                                          TransactionDB.instance.refreshUI();
+                                          settingsProvider
+                                              .resetAllData(context);
+                                          //TransactionDB.instance.refreshUI();
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             const SnackBar(
@@ -178,8 +156,9 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                       const Spacer(),
                                       TextButton(
                                         onPressed: () {
-                                          resetAllTransactions();
-                                          TransactionDB.instance.refreshUI();
+                                          settingsProvider
+                                              .resetAllTransactions();
+                                          //TransactionDB.instance.refreshUI();
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             const SnackBar(
@@ -298,30 +277,5 @@ class _ScreenSettingsState extends State<ScreenSettings> {
         ),
       ),
     );
-  }
-
-  Future<void> resetAllData() async {
-    final deleteCategory = await Hive.openBox<CategoryModel>(categoryDbName);
-    deleteCategory.deleteFromDisk();
-
-    final deleteAllTransactions =
-        await Hive.openBox<TransactionModel>(transactionDbName);
-    deleteAllTransactions.deleteFromDisk();
-
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.clear();
-    if (!mounted) {}
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const ScreenSplash(),
-      ),
-    );
-  }
-
-  Future<void> resetAllTransactions() async {
-    final deleteAllTransactions =
-        await Hive.openBox<TransactionModel>(transactionDbName);
-    deleteAllTransactions.deleteFromDisk();
-    await TransactionDB.instance.refreshUI();
   }
 }

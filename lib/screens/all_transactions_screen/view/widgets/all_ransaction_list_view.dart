@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:my_wallet/screens/add_screen/model/transaction_model.dart';
 import 'package:my_wallet/screens/all_transactions_screen/controller/all_transattions_provider.dart';
 import 'package:my_wallet/screens/all_transactions_screen/view/widgets/all_transactions_list_tile.dart';
 import 'package:provider/provider.dart';
@@ -8,12 +9,14 @@ import 'package:provider/provider.dart';
 class AllTransactionsList extends StatelessWidget {
   const AllTransactionsList({
     Key? key,
+    required this.foundData,
   }) : super(key: key);
+  final List<TransactionModel> foundData;
 
   @override
   Widget build(BuildContext context) {
     final allTrasactionProvider =
-        Provider.of<AllTransactionsScreenProvider>(context);
+        Provider.of<AllTransactionsScreenProvider>(context, listen: false);
     return ListView.separated(
       padding: EdgeInsets.only(
         left: 10.w,
@@ -99,8 +102,7 @@ class AllTransactionsList extends StatelessWidget {
             ],
           ),
           child: AllTransactionLIstTile(
-            allTrasactionProvider: allTrasactionProvider,
-            index: index,
+            transaction: foundData[index],
           ),
         );
       },
@@ -110,7 +112,7 @@ class AllTransactionsList extends StatelessWidget {
           height: 1,
         );
       },
-      itemCount: allTrasactionProvider.foundData.length,
+      itemCount: foundData.length,
     );
   }
 }

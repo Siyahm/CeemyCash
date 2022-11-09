@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_wallet/screens/all_transactions_screen/controller/all_transattions_provider.dart';
-import 'package:my_wallet/screens/home_screen/controller/home_screen_provider.dart';
 import 'package:my_wallet/screens/home_screen/view/widgets/home_cards.dart';
 import 'package:my_wallet/screens/home_screen/view/widgets/recent_transactions.dart';
 import 'package:pie_chart/pie_chart.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class HomeElements extends StatelessWidget {
@@ -33,19 +31,28 @@ class HomeElements extends StatelessWidget {
             child: Stack(
               alignment: AlignmentDirectional.center,
               children: [
-                PieChart(
-                  colorList: const [
-                    Color.fromARGB(251, 0, 52, 90),
-                    // Color.fromARGB(255, 255, 255, 255),
-                    Color.fromARGB(248, 255, 255, 255),
-                  ],
-                  emptyColor: const Color.fromARGB(250, 1, 59, 100),
-                  baseChartColor: const Color.fromARGB(250, 1, 59, 100),
-                  legendOptions: const LegendOptions(
-                    showLegends: false,
-                  ),
-                  chartType: ChartType.ring,
-                  dataMap: homeScrnProvider.transactionGraph,
+                Consumer(
+                  builder:
+                      (context, AllTransactionsScreenProvider value, child) {
+                    return PieChart(
+                      colorList: const [
+                        Color.fromARGB(248, 24, 77, 116),
+                        Color.fromARGB(251, 0, 52, 90),
+                        // Color.fromARGB(255, 255, 255, 255),
+                        // Color.fromARGB(248, 255, 255, 255),
+                      ],
+                      emptyColor: const Color.fromARGB(250, 1, 59, 100),
+                      baseChartColor: const Color.fromARGB(250, 1, 59, 100),
+                      legendOptions: const LegendOptions(
+                        showLegends: false,
+                      ),
+                      chartType: ChartType.ring,
+                      dataMap: {
+                        'Income': value.totalIncome,
+                        'Expense': value.totalExpense,
+                      },
+                    );
+                  },
                 ),
                 CircleAvatar(
                   radius: 115.r,
@@ -77,15 +84,11 @@ class HomeElements extends StatelessWidget {
                             fontSize: 27.sp,
                           ),
                         ),
-                        ValueListenableBuilder(
-                          valueListenable: TransactionDB().currentBalance,
-                          builder: (BuildContext context, value, Widget? _) {
+                        Consumer(
+                          builder: (BuildContext context,
+                              AllTransactionsScreenProvider value, Widget? _) {
                             return Text(
-                              TransactionDB()
-                                  .currentBalance
-                                  .value
-                                  .round()
-                                  .toString(),
+                              value.currentBalance.round().toString(),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color:

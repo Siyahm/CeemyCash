@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
 import 'package:my_wallet/screens/categories_screen/view/categories.dart';
-import 'package:my_wallet/screens/chart.dart';
+import 'package:my_wallet/screens/chart/view/chart.dart';
 import 'package:my_wallet/screens/home_screen/view/home.dart';
-import 'package:my_wallet/screens/settings.dart';
+import 'package:my_wallet/screens/setting/view/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreenProvider with ChangeNotifier {
-  Map<String, double> transactionGraph = {
-    'Income': TransactionDB.instance.totalIncome.value,
-    'Expense': TransactionDB.instance.totalExpense.value,
-  };
-
   bool isVisible = true;
   int selectedPageIndex = 0;
 

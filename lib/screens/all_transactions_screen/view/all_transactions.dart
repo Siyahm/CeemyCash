@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_wallet/screens/all_transactions_screen/controller/all_transattions_provider.dart';
@@ -11,9 +13,11 @@ class AllTransactions extends StatelessWidget {
   Widget build(BuildContext context) {
     final allTransactionProvider =
         Provider.of<AllTransactionsScreenProvider>(context, listen: false);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      allTransactionProvider.allTransactionUIRefreshFunction();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      //allTransactionProvider.allTransactionUIRefreshFunction();
+      //await allTransactionProvider.refreshUI();
     });
+    log("all transaction build called");
     return Container(
       decoration: const BoxDecoration(
         color: Color.fromARGB(255, 3, 45, 81),
@@ -143,7 +147,7 @@ class AllTransactions extends StatelessWidget {
             Consumer<AllTransactionsScreenProvider>(
               builder: (context, value, child) => Expanded(
                 child: value.foundData.isNotEmpty
-                    ? const AllTransactionsList()
+                    ? AllTransactionsList(foundData: value.foundData)
                     : const Center(
                         child: Text(
                           'No Transactions',

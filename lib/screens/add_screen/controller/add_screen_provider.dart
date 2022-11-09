@@ -19,7 +19,9 @@ enum ScreenType {
 }
 
 class AddScreenProvider with ChangeNotifier {
-  final transactionAmountEditingController = TextEditingController();
+  final TextEditingController transactionAmountEditingController =
+      TextEditingController();
+  final TextEditingController? descriptionController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
 
   DateTime? selectedDate;
@@ -190,6 +192,7 @@ class AddScreenProvider with ChangeNotifier {
       type2: screenType == ScreenType.incmeScreen
           ? TransactionType.incom
           : TransactionType.exppense,
+      description: descriptionController?.text,
     );
     await TransactionDB.instance.addTransaction(transactionModel);
   }
@@ -213,6 +216,7 @@ class AddScreenProvider with ChangeNotifier {
       type2: screenType == ScreenType.incmeScreen
           ? TransactionType.incom
           : TransactionType.exppense,
+      description: descriptionController?.text,
     );
     await transactionModel.editTransaction(editedTransactionModel);
     clearAddScreenValues();

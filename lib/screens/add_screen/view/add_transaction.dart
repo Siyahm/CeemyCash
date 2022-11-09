@@ -205,6 +205,23 @@ class AddTransaction extends StatelessWidget {
                   SizedBox(
                     height: 9.h,
                   ),
+                  SizedBox(
+                    width: 248.w,
+                    child: TextFormField(
+                      maxLines: 1,
+                      controller: addScreenProvider.descriptionController,
+                      textAlign: TextAlign.left,
+                      decoration: const InputDecoration(
+                        hintText: 'Add description',
+                        filled: true,
+                        fillColor: Colors.white,
+                        isDense: true,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 9.h,
+                  ),
                   Container(
                     padding: const EdgeInsets.only(
                       left: 10,
@@ -245,7 +262,7 @@ class AddTransaction extends StatelessWidget {
                       ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                            const Color.fromARGB(255, 1, 98, 177),
+                            const Color.fromARGB(255, 0, 33, 60),
                           ),
                         ),
                         onPressed: () {

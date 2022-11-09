@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,8 +13,7 @@ class AllTransactionsScreenProvider with ChangeNotifier {
   double currentBalance = 0;
   double totalIncome = 0;
   double totalExpense = 0;
-  final List<TransactionModel> allData =
-      TransactionDB.instance.transactionListNotifier;
+
   List<TransactionModel> foundData = [];
   String searchCloseIcon = '';
 
@@ -20,17 +21,20 @@ class AllTransactionsScreenProvider with ChangeNotifier {
   List<TransactionModel> expenseTransactionListNotifier = [];
   List<TransactionModel> transactionListNotifier = [];
 
+  final List<TransactionModel> allData =
+      TransactionDB().transactionListNotifier;
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   String currentCategory = 'All';
   String currentTransaction = 'All';
 
-  void allTransactionUIRefreshFunction() {
-    TransactionDB.instance.sortedTransactions();
+  // void allTransactionUIRefreshFunction() {
+  //   TransactionDB.instance.sortedTransaction();
 
-    foundData = allData;
-    notifyListeners();
-  }
+  //   foundData = allData;
+  //   notifyListeners();
+  // }
 
   void transactionTypeFilterOnChange(String? newValue) {
     currentCategory = newValue!;
@@ -85,21 +89,16 @@ class AllTransactionsScreenProvider with ChangeNotifier {
   }
 
   Future<void> refreshUI() async {
-    final allTransactionList =
-        await TransactionDB.instance.getAllTransactions();
-    allTransactionList.sort(
-      (first, second) =>
-          second.transactionDate.compareTo(first.transactionDate),
-    );
-    transactionListNotifier.clear();
-    transactionListNotifier.addAll(allTransactionList);
-
+    final getAllTransactions = await TransactionDB().refreshUi();
     currentBalance = 0;
     totalIncome = 0;
     totalExpense = 0;
 
+    incomeTransactionListNotifier.clear();
+    expenseTransactionListNotifier.clear();
+
     await Future.forEach(
-      allTransactionList,
+      getAllTransactions,
       (TransactionModel transaction) {
         if (transaction.type2 == TransactionType.incom) {
           totalIncome = totalIncome + transaction.transactionAmount;
@@ -112,6 +111,7 @@ class AllTransactionsScreenProvider with ChangeNotifier {
     );
 
     currentBalance = totalIncome - totalExpense;
+    notifyListeners();
   }
 
   void editButtonPressed(index, context) {
@@ -160,8 +160,10 @@ class AllTransactionsScreenProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void filteredTransaction() {
+  void filteredTransaction() async {
+    log("filter method called");
     foundData = allData;
+
     List<TransactionModel> result = [];
     final todayDate = DateTime.now();
     final date = DateFormat('yMMMd').format(todayDate);
@@ -262,6 +264,7 @@ class AllTransactionsScreenProvider with ChangeNotifier {
     }
 
     foundData = result;
+    await refreshUI();
     notifyListeners();
   }
 }
