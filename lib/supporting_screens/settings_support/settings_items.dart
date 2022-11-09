@@ -22,14 +22,14 @@ class SettingsItems extends StatelessWidget {
       child: ListTile(
           leading: Icon(
             icon1,
-            color: Colors.white,
-            size: 28.sp,
+            color: const Color.fromARGB(255, 0, 48, 84),
+            size: 29.sp,
           ),
           title: Text(
             text1,
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.sp,
+              color: const Color.fromARGB(255, 0, 48, 84),
+              fontSize: 19.sp,
             ),
           )),
     );
@@ -43,7 +43,7 @@ class Divider1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Divider(
       thickness: 1.2,
-      color: Colors.blue,
+      color: Colors.white,
       height: 1,
     );
   }

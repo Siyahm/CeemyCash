@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 
-import 'package:my_wallet/models/transactions/transaction_model.dart';
+import 'package:my_wallet/screens/add_screen/model/transaction_model.dart';
 
 const transactionDbName = 'transaction_db';
 
@@ -21,22 +21,18 @@ class TransactionDB implements TransactionDbFunctions {
     return instance;
   }
 
-  ValueNotifier<List<TransactionModel>> transactionListNotifier =
-      ValueNotifier([]);
-  ValueNotifier<List<TransactionModel>> incomeTransactionListNotifier =
-      ValueNotifier([]);
-  ValueNotifier<List<TransactionModel>> expenseTransactionListNotifier =
-      ValueNotifier([]);
+  List<TransactionModel> transactionListNotifier = [];
+  List<TransactionModel> incomeTransactionListNotifier = [];
+  List<TransactionModel> expenseTransactionListNotifier = [];
 
-  ValueNotifier<List<TransactionModel>> allDaytransactionNotifier =
-      ValueNotifier([]);
+  List<TransactionModel> allDaytransactionNotifier = [];
 
-  // ValueNotifier<List<TransactionModel>> todayAlltransactionNotifier =
+  // <List<TransactionModel>> todayAlltransactionNotifier =
   //     ValueNotifier([]);
 
-  ValueNotifier<double> currentBalance = ValueNotifier(0);
-  ValueNotifier<double> totalIncome = ValueNotifier(0);
-  ValueNotifier<double> totalExpense = ValueNotifier(0);
+  double currentBalance = 0;
+  double totalIncome = 0;
+  double totalExpense = 0;
 
   final String todayDate = DateFormat('yMMMMd').format(DateTime.now());
   final DateTime weekDate = DateTime.now().subtract(const Duration(days: 7));

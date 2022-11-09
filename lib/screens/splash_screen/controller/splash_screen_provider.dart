@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_wallet/screens/page_1_screen/view/page_1.dart';
-import 'package:my_wallet/supporting_screens/Home_supports/bottom_navigation_bar.dart';
+import 'package:my_wallet/screens/home_screen/view/widgets/bottom_navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenProvider with ChangeNotifier {

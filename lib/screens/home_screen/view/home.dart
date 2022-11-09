@@ -19,14 +19,16 @@ class ScreenHome extends StatelessWidget {
     });
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topRight,
-          colors: [
-            Color.fromARGB(255, 0, 31, 89),
-            Color.fromARGB(255, 17, 149, 186),
-          ],
-        ),
+        color: Color.fromARGB(255, 3, 45, 81),
+
+        // gradient:LinearGradient(
+        //   begin: Alignment.bottomCenter,
+        //   end: Alignment.topRight,
+        //   colors: [
+        //     Color.fromARGB(255, 0, 31, 89),
+        //     // Color.fromARGB(255, 17, 149, 186),
+        //   ],
+        // ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -69,7 +71,7 @@ class ScreenHome extends StatelessWidget {
               const SizedBox(
                 width: 15,
               ),
-              HomeElements(),
+              const HomeElements(),
               Positioned(
                 bottom: 0.h,
                 // left: 160.w,

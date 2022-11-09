@@ -1,4 +1,4 @@
-import 'package:my_wallet/models/transactions/transaction_model.dart';
+import 'package:my_wallet/screens/add_screen/model/transaction_model.dart';
 
 class DataForChart {
   final int amount;

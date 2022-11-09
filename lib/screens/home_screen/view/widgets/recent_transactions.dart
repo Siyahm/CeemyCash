@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_wallet/screens/all_transactions.dart';
+import 'package:my_wallet/screens/all_transactions_screen/view/all_transactions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../db_functions/transactions/transaction_db.dart';
-import '../../models/transactions/transaction_model.dart';
+import '../../../../db_functions/transactions/transaction_db.dart';
+import '../../../add_screen/model/transaction_model.dart';
 
 class ScreenRecentTransactions extends StatefulWidget {
   const ScreenRecentTransactions({Key? key}) : super(key: key);

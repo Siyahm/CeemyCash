@@ -3,9 +3,10 @@ import 'package:hive/hive.dart';
 import 'package:my_wallet/db_functions/category/category_db.dart';
 import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
 
-import 'package:my_wallet/models/category/category_model.dart';
-import 'package:my_wallet/models/transactions/transaction_model.dart';
-import 'package:my_wallet/screens/about.dart';
+import 'package:my_wallet/screens/add_screen/model/transaction_model.dart';
+import 'package:my_wallet/screens/about_screen/view/about_acreen.dart';
+
+import 'package:my_wallet/screens/categories_screen/models/category_model.dart';
 import 'package:my_wallet/screens/privacy_policy.dart';
 import 'package:my_wallet/screens/splash_screen/view/splash.dart';
 import 'package:my_wallet/screens/terms_and_conditions.dart';
@@ -35,14 +36,15 @@ class _ScreenSettingsState extends State<ScreenSettings> {
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              colors: [
-                Color.fromARGB(255, 0, 27, 48),
-                Color.fromARGB(255, 17, 149, 186),
-              ],
-            ),
+            color: Color.fromARGB(255, 233, 233, 233),
+            // gradient: LinearGradient(
+            //   begin: Alignment.bottomLeft,
+            //   end: Alignment.topRight,
+            //   colors: [
+            //     Color.fromARGB(255, 0, 27, 48),
+            //     Color.fromARGB(255, 17, 149, 186),
+            //   ],
+            // ),
           ),
           child: Column(
             children: [
@@ -72,7 +74,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                   expandedCrossAxisAlignment: CrossAxisAlignment.start,
                   trailing: const Icon(
                     Icons.arrow_drop_down,
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 0, 48, 84),
                   ),
                   expandedAlignment: Alignment.center,
                   // expandedCrossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +141,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                           child: const Text(
                             'Delete all data',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 255, 248, 186),
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                         ),
@@ -202,7 +204,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                           child: const Text(
                             'Delete all transactions',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 255, 248, 186),
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                         ),

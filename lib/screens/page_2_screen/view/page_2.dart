@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_wallet/screens/page_2_screen/controller/page_2_provider.dart';
-import 'package:my_wallet/screens/welcome_screen/view/welcome.dart';
 import 'package:provider/provider.dart';
 
 class PageTwo extends StatelessWidget {
@@ -13,14 +12,8 @@ class PageTwo extends StatelessWidget {
       body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Color.fromARGB(255, 0, 27, 48),
-            Color.fromARGB(255, 17, 149, 186),
-          ],
-        )),
+          color: Color.fromARGB(255, 1, 37, 69),
+        ),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -29,9 +22,12 @@ class PageTwo extends StatelessWidget {
               //   height: 180,
               // ),
               SizedBox(
-                height: 260.h,
+                height: 300.h,
                 child: const Image(
-                  image: AssetImage('lib/assets/save money.png'),
+                  color: Colors.white,
+                  image: AssetImage(
+                    'lib/assets/3-removebg-preview.png',
+                  ),
                 ),
               ),
               SizedBox(
@@ -63,7 +59,7 @@ class PageTwo extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: (() {
-                      Provider.of<Page2Provider>(context)
+                      Provider.of<Page2Provider>(context, listen: false)
                           .buttonPressed(context);
                     }),
                     icon: const Icon(

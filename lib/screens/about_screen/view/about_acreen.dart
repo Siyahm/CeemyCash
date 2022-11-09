@@ -2,17 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-final Uri _url =
-    Uri.parse('https://www.linkedin.com/in/siyaudheen-m-581b46199');
-final Uri _url2 = Uri.parse('mailto:m.siyaudheen@gmail.com');
+import 'package:my_wallet/screens/about_screen/controller/about_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 class ScreenAboutUs extends StatelessWidget {
   const ScreenAboutUs({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final aboutScreenProvider = Provider.of<AboutScreenProvider>(context);
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -80,7 +78,7 @@ class ScreenAboutUs extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                _launchUrl();
+                                aboutScreenProvider.launchUrlLinkedin();
                               },
                               child: const SizedBox(
                                 width: 40,
@@ -96,7 +94,7 @@ class ScreenAboutUs extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                _launchUrlMail();
+                                aboutScreenProvider.launchUrlMailMail();
                               },
                               child: const SizedBox(
                                 width: 40,
@@ -128,15 +126,5 @@ class ScreenAboutUs extends StatelessWidget {
   //     log(e.toString());
   //   }
   // }
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
-    }
-  }
 
-  Future<void> _launchUrlMail() async {
-    if (!await launchUrl(_url2)) {
-      throw 'Could not launch $_url';
-    }
-  }
 }

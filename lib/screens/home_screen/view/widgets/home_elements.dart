@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
 import 'package:my_wallet/screens/home_screen/controller/home_screen_provider.dart';
-import 'package:my_wallet/supporting_screens/Home_supports/home_cards.dart';
-import 'package:my_wallet/supporting_screens/Home_supports/recent_transactions.dart';
+import 'package:my_wallet/screens/home_screen/view/widgets/home_cards.dart';
+import 'package:my_wallet/screens/home_screen/view/widgets/recent_transactions.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class HomeElements extends StatelessWidget {
-  HomeElements({Key? key}) : super(key: key);
+  const HomeElements({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,84 +23,86 @@ class HomeElements extends StatelessWidget {
         children: [
           SizedBox(
             width: double.infinity,
-            height: 35.h,
+            height: 45.h,
           ),
           CircleAvatar(
-              radius: 116.r,
-              // backgroundColor: const Color.fromARGB(255, 6, 41, 77),
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  PieChart(
-                    colorList: const [
-                      Color.fromARGB(251, 0, 52, 90),
-                      // Color.fromARGB(255, 255, 255, 255),
-                      Color.fromARGB(249, 45, 108, 153),
-                    ],
-                    emptyColor: const Color.fromARGB(249, 45, 108, 153),
-                    baseChartColor: const Color.fromARGB(249, 45, 108, 153),
-                    legendOptions: const LegendOptions(
-                      showLegends: false,
-                    ),
-                    chartType: ChartType.ring,
-                    dataMap: homeScrnProvider.transactionGraph,
+            radius: 120.r,
+            // backgroundColor: const Color.fromARGB(255, 6, 41, 77),
+            child: Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                PieChart(
+                  colorList: const [
+                    Color.fromARGB(251, 0, 52, 90),
+                    // Color.fromARGB(255, 255, 255, 255),
+                    Color.fromARGB(248, 255, 255, 255),
+                  ],
+                  emptyColor: const Color.fromARGB(250, 1, 59, 100),
+                  baseChartColor: const Color.fromARGB(250, 1, 59, 100),
+                  legendOptions: const LegendOptions(
+                    showLegends: false,
                   ),
-                  CircleAvatar(
-                    radius: 111.r,
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomLeft,
-                          end: Alignment.topRight,
-                          colors: [
-                            Color.fromARGB(255, 9, 49, 92),
-                            Color.fromARGB(255, 17, 149, 186),
-                          ],
+                  chartType: ChartType.ring,
+                  dataMap: homeScrnProvider.transactionGraph,
+                ),
+                CircleAvatar(
+                  radius: 115.r,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(251, 0, 52, 90),
+                      shape: BoxShape.circle,
+                      // gradient: LinearGradient(
+                      //   begin: Alignment.bottomLeft,
+                      //   end: Alignment.topRight,
+                      //   colors: [
+                      //     Color.fromARGB(255, 9, 49, 92),
+                      //     Color.fromARGB(255, 17, 149, 186),
+                      //   ],
+                      // ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 55.h,
                         ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 35.h,
+                        Text(
+                          'Balance\n₹',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 27.sp,
                           ),
-                          Text(
-                            'Balance\n₹',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 26.sp,
-                            ),
-                          ),
-                          ValueListenableBuilder(
-                            valueListenable: TransactionDB().currentBalance,
-                            builder: (BuildContext context, value, Widget? _) {
-                              return Text(
-                                TransactionDB()
-                                    .currentBalance
-                                    .value
-                                    .round()
-                                    .toString(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: const Color.fromARGB(
-                                        255, 253, 243, 155),
-                                    fontSize: 35.sp,
-                                    fontWeight: FontWeight.bold),
-                              );
-                            },
-                          )
-                        ],
-                      ),
+                        ),
+                        ValueListenableBuilder(
+                          valueListenable: TransactionDB().currentBalance,
+                          builder: (BuildContext context, value, Widget? _) {
+                            return Text(
+                              TransactionDB()
+                                  .currentBalance
+                                  .value
+                                  .round()
+                                  .toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color:
+                                      const Color.fromARGB(255, 253, 243, 155),
+                                  fontSize: 37.sp,
+                                  fontWeight: FontWeight.bold),
+                            );
+                          },
+                        )
+                      ],
                     ),
                   ),
-                ],
-              )),
-          SizedBox(
-            height: 20.h,
+                ),
+              ],
+            ),
           ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -108,7 +110,6 @@ class HomeElements extends StatelessWidget {
                 topLeft: Radius.circular(10.r),
                 topRight: Radius.circular(10.r),
               ),
-              color: const Color.fromARGB(255, 1, 48, 87),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -116,14 +117,17 @@ class HomeElements extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 5.h),
                 ),
-                Text(
-                  'Overview',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.sp,
-                  ),
-                  textAlign: TextAlign.center,
+                const SizedBox(
+                  height: 10,
                 ),
+                // Text(
+                //   'Overview',
+                //   style: TextStyle(
+                //     color: Colors.white,
+                //     fontSize: 20.sp,
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
                 SizedBox(
                   height: 10.h,
                 ),

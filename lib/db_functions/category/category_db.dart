@@ -1,5 +1,4 @@
 import 'package:hive_flutter/adapters.dart';
-import 'package:my_wallet/screens/categories_screen/controller/categories_provider.dart';
 import 'package:my_wallet/screens/categories_screen/models/category_model.dart';
 
 const categoryDbName = 'category_database';
@@ -25,7 +24,7 @@ class CategoryDB implements CategoryDbFunctions {
   ) async {
     final categoryDB = await Hive.openBox<CategoryModel>(categoryDbName);
     categoryDB.put(value.id, value);
-    refreshUI();
+    await refreshUI();
   }
 
   @override
@@ -34,20 +33,9 @@ class CategoryDB implements CategoryDbFunctions {
     return categoryDB.values.toList();
   }
 
-  Future<void> refreshUI() async {
+  Future<List<CategoryModel>> refreshUI() async {
     final getAllCategory = await getAllCategories();
-    CategoriesProvider().incomeCatergoryModelList.clear();
-    CategoriesProvider().expenseCategoryModelList.clear();
-    await Future.forEach(
-      getAllCategory,
-      (CategoryModel category) {
-        if (category.type1 == CategoryType.income) {
-          CategoriesProvider().incomeCatergoryModelList.add(category);
-        } else {
-          CategoriesProvider().expenseCategoryModelList.add(category);
-        }
-      },
-    );
+    return getAllCategory;
   }
 
   @override

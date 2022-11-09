@@ -12,29 +12,23 @@ class PageOne extends StatelessWidget {
       body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Color.fromARGB(255, 0, 27, 48),
-              Color.fromARGB(255, 17, 149, 186),
-            ],
-          ),
+          color: Color.fromARGB(255, 1, 37, 69),
         ),
         child: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(
                 height: 220.h,
                 child: const Image(
                   image: AssetImage(
-                    'lib/assets/moneymanagement1.png',
+                    'lib/assets/2-removebg-preview.png',
                   ),
                 ),
               ),
               SizedBox(
-                height: 70.h,
+                height: 80.h,
               ),
               const Text(
                 'Track Your Expense',

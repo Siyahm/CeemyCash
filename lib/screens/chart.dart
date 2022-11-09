@@ -29,14 +29,15 @@ class _ScreenChartState extends State<ScreenChart>
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Color.fromARGB(255, 0, 27, 48),
-            Color.fromARGB(255, 17, 149, 186),
-          ],
-        ),
+        color: Color.fromARGB(255, 3, 45, 81),
+        // gradient: LinearGradient(
+        //   begin: Alignment.bottomLeft,
+        //   end: Alignment.topRight,
+        //   colors: [
+        //     Color.fromARGB(255, 0, 27, 48),
+        //     Color.fromARGB(255, 17, 149, 186),
+        //   ],
+        // ),
       ),
       child: SafeArea(
         child: Scaffold(
@@ -64,20 +65,26 @@ class _ScreenChartState extends State<ScreenChart>
                     // ),
                     width: double.infinity,
                     height: 700.h,
-                    color: const Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 233, 233, 233),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           // width: double.infinity,
-                          color: const Color.fromARGB(255, 0, 68, 119),
+                          color: const Color.fromARGB(255, 3, 45, 81),
                           child: TabBar(
-                            labelColor:
-                                const Color.fromARGB(255, 255, 238, 155),
+                            indicator: const BoxDecoration(
+                              color: Color.fromARGB(255, 233, 233, 233),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                              ),
+                            ),
+                            labelColor: const Color.fromARGB(255, 3, 45, 81),
                             unselectedLabelColor:
-                                const Color.fromARGB(171, 255, 255, 255),
-                            indicatorColor:
-                                const Color.fromARGB(255, 255, 238, 155),
+                                const Color.fromARGB(171, 223, 223, 223),
+                            // indicatorColor:
+                            //     const Color.fromARGB(255, 255, 238, 155),
                             controller: _tabController1,
                             tabs: const [
                               Tab(

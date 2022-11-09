@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
-import 'package:my_wallet/models/transactions/transaction_model.dart';
+import 'package:my_wallet/screens/add_screen/model/transaction_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ScreenOverviewChart extends StatelessWidget {

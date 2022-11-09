@@ -15,14 +15,7 @@ class ScreenWelcome extends StatelessWidget {
         width: double.maxFinite,
         height: double.maxFinite,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              Color.fromARGB(255, 0, 27, 48),
-              Color.fromARGB(255, 17, 149, 186),
-            ],
-          ),
+          color: Color.fromARGB(255, 1, 37, 69),
         ),
         child: SafeArea(
           child: SingleChildScrollView(
@@ -41,7 +34,7 @@ class ScreenWelcome extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 100.h,
+                  height: 160.h,
                 ),
                 // const SizedBox(
                 //   height: 155,
@@ -72,6 +65,8 @@ class ScreenWelcome extends StatelessWidget {
                             color: Colors.white,
                           ),
                           decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 8),
                             errorStyle: TextStyle(
                               fontSize: 18.sp,
                             ),
@@ -91,7 +86,7 @@ class ScreenWelcome extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: const Color.fromARGB(255, 0, 23, 42),
                         ),
                         onPressed: () {
                           welcomeScrnProvider.startButttonPressed(context);

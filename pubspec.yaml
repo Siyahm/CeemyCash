@@ -74,6 +74,9 @@ flutter:
     - lib/assets/MywalletLogo1.1.png
     - lib/assets/LinkedIn_logo_initials.png
     - lib/assets/831b690580156421a3b075e8387f9799.jpeg
+    - lib/assets/2-removebg-preview.png
+    - lib/assets/3-removebg-preview.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

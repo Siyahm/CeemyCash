@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:my_wallet/db_functions/transactions/transaction_db.dart';
 
-import '../../screens/categories_screen/models/category_model.dart';
+import '../../categories_screen/models/category_model.dart';
 part 'transaction_model.g.dart';
 
 @HiveType(typeId: 4)
@@ -40,17 +40,15 @@ class TransactionModel extends HiveObject {
   }
 
   Future<void> deleteTransaction(TransactionModel transaction) async {
-    await transaction
-        .delete()
-        .whenComplete(() => TransactionDB.instance.refreshUI());
+    await transaction.delete();
   }
 
-  void editTransaction(TransactionModel transaction) {
+  Future<void> editTransaction(TransactionModel transaction) async {
     id = transaction.id;
     transactionDate = transaction.transactionDate;
     transactionAmount = transaction.transactionAmount;
     transactionCategory = transaction.transactionCategory;
     type2 = transaction.type2;
-    save().whenComplete(() => TransactionDB.instance.refreshUI());
+    await save();
   }
 }

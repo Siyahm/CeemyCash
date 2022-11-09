@@ -16,14 +16,15 @@ class ScreenSplash extends StatelessWidget {
     });
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topRight,
-          colors: [
-            Color.fromARGB(255, 0, 27, 48),
-            Color.fromARGB(255, 17, 149, 186),
-          ],
-        ),
+        color: Color.fromARGB(255, 0, 27, 48),
+        // gradient: LinearGradient(
+        //   begin: Alignment.bottomCenter,
+        //   end: Alignment.topRight,
+        //   colors: [
+        //     Color.fromARGB(255, 0, 27, 48),
+        //     Color.fromARGB(255, 17, 149, 186),
+        //   ],
+        // ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -33,7 +34,7 @@ class ScreenSplash extends StatelessWidget {
             children: [
               Image.asset(
                 'lib/assets/coin-spin3.gif',
-                height: 180.h,
+                height: 170.h,
               ),
               AnimatedTextKit(animatedTexts: [
                 ColorizeAnimatedText(
